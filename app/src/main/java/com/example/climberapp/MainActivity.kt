@@ -1,7 +1,16 @@
 package com.example.climberapp
 
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -12,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.climberapp.databinding.ActivityMainBinding
+import com.example.climberapp.storage.SharedPrefManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +41,13 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
+        val navView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navView.menu.findItem(R.id.nav_logout).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener {
+            showDialog()
+            drawerLayout.closeDrawers()
+            true
+        })
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -53,5 +68,24 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun showDialog() {
+        val customDialog = Dialog(this)
+        customDialog.setContentView(R.layout.custom_dialog)
+        customDialog.setCanceledOnTouchOutside(false)
+        customDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val yesBtn = customDialog.findViewById(R.id.yes_opt) as TextView
+        val noBtn = customDialog.findViewById(R.id.no_opt) as TextView
+        yesBtn.setOnClickListener {
+            //Do something here
+            SharedPrefManager.getInstance(this).clear()
+            customDialog.dismiss()
+            finishAffinity()
+        }
+        noBtn.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
     }
 }

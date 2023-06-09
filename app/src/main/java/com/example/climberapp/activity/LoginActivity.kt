@@ -2,6 +2,7 @@ package com.example.climberapp.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.climberapp.MainActivity
 import com.example.climberapp.R
 import com.example.climberapp.config.CheckInternet
 import com.example.climberapp.config.RetrofitClient
@@ -46,9 +48,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }else if(password.isEmpty()){
                     et_password.error = "Password required"
                     et_password.requestFocus()
-                    //return@setOnClickListener
                 }else{
-                    //Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show()
                     if (CheckInternet.getInstance(this@LoginActivity).isNetworkConnected()){
                         loginCall(email, password)
                      }else{
@@ -77,21 +77,25 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 SharedPrefManager.getInstance(this@LoginActivity).putString("userDeviceId",LoginResponse.userDeviceId.toString())
                                 SharedPrefManager.getInstance(this@LoginActivity).putString("fleetId",LoginResponse.fleetId.toString())
                                 SharedPrefManager.getInstance(this@LoginActivity).saveUser(LoginResponse.user)
-                                Toast.makeText(this@LoginActivity, "success", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
                                 hideKeyboard()
                             } else {
                                 Toast.makeText(this@LoginActivity, response.body()?.error!!, Toast.LENGTH_LONG).show()
+                                hideKeyboard()
                             }
                         }
                     }else{
                         Toast.makeText(this@LoginActivity, "Something went wrong!!", Toast.LENGTH_LONG).show()
+                        hideKeyboard()
                     }
                 }
             })
 
     }
 
-   fun hideKeyboard() {
+    fun hideKeyboard() {
        // on below line getting current view.
        val view: View? = this.currentFocus
 
@@ -105,7 +109,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)
 
            // displaying toast message on below line.
-           Toast.makeText(this, "Key board hidden", Toast.LENGTH_SHORT).show()
+           //Toast.makeText(this, "Key board hidden", Toast.LENGTH_SHORT).show()
        }
    }
 }

@@ -19,12 +19,17 @@ import java.util.Locale
 
 class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filterable {
     var devices = mutableListOf<DeviceListModel>()
-
+    var devicesFiltered = mutableListOf<DeviceListModel>()
+    
     fun setDeviceList(devices: List<DeviceListModel>) {
         this.devices = devices.toMutableList()
+        this.devicesFiltered = devices.toMutableList()
         notifyDataSetChanged()
     }
-
+    fun setDeviceListFilter(devices: List<DeviceListModel>) {
+        this.devicesFiltered = devices.toMutableList()
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -33,7 +38,7 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
     }
 
     override fun getItemCount(): Int {
-        return devices.size
+        return devicesFiltered.size
     }
 
     override fun onBindViewHolder(holder: DeviceViewHolder, position: Int) {
@@ -47,12 +52,6 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
         } else {
             holder.binding.txtLocation.text = "Offsite"
         }
-    }
-
-    fun hideKeyboard(context: Context, view: View) {
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 
@@ -76,8 +75,7 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
                     val txtDevice = item.deviceId
                     if (txApp.lowercase(Locale.getDefault()).contains(filterPattern) ||
                         txCity.lowercase(Locale.getDefault()).contains(filterPattern) ||
-                        txtDevice.toString().contains(filterPattern)
-                    ) {
+                        txtDevice.toString().contains(filterPattern)) {
                         filteredList.add(item)
                     }
                 }
@@ -94,10 +92,16 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
 //          devices.clear()
 //          devices.addAll(results!!.values as ArrayList<DeviceListModel>)
-            devices = results?.values as ArrayList<DeviceListModel>
-            if (devices.size != 0) {
+           // devices = results?.values as ArrayList<DeviceListModel>
+
+
+            devicesFiltered = results?.values as ArrayList<DeviceListModel>
+            setDeviceListFilter(devicesFiltered)
+
+
+            /*if (devices.size != 0) {
                 notifyDataSetChanged()
-            }
+            }*/
         }
 
 

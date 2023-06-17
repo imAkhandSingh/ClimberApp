@@ -15,7 +15,6 @@ import java.util.Locale
 
 
 class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder>() ,Filterable{
-
     private var data: User? = null
     private var dataFiltered: User? = null
 

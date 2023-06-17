@@ -9,15 +9,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
+        app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/side_vertical_bar"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -25,77 +39,79 @@
 
                 <TextView
                     android:id="@+id/column2TextView"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="200dp"
-                    android:padding="5dp"
+                    android:layout_centerVertical="true"
                     android:gravity="start"
                     android:text="@string/device_id"    
-                    android:textColor="@color/red"
+                    android:textColor="@color/darkgrey"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="15dp"
                     android:contentDescription="@string/todo"
                     android:src="@drawable/critical" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_margin="3dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:id="@+id/column4TextView"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="110dp"
-                    android:padding="5dp"
-                    android:gravity="start"
                     android:text="@string/time"
                     android:textColor="@color/blue"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="end"
                     android:contentDescription="@string/todo"
-                    android:src="@drawable/critical" />
-            </LinearLayout>
+                    android:src="@drawable/battery" />
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_button_background"
+                android:layout_width="200dp"
+                android:layout_height="42dp"
                 android:layout_gravity="center">
 
                 <TextView
+                    android:layout_centerInParent="true"
                     android:id="@+id/myButton"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/custom_button_background"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
                     android:text="@string/release"
                     android:textColor="@color/red"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

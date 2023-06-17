@@ -12,6 +12,9 @@
     <string name="menu_devices">Devices</string>
     <string name="menu_sites">Sites</string>
     <string name="menu_reports">Reports</string>
+    <string name="menu_logout">LogOut</string>
+    <string name="connected">Connected</string>
+    <string name="more">More</string>
     <string name="alarm_details">Alarm Details</string>
     <string name="inactive_device">Inactive Device</string>
     <string name="battery_low">Battery Low</string>

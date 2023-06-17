@@ -24,5 +24,9 @@
             android:id="@+id/nav_reports"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_reports" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/baseline_exit_to_app_24"
+            android:title="@string/menu_logout" />
     </group>
 </menu>

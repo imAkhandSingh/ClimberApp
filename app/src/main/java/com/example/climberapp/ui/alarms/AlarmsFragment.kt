@@ -1,42 +1,54 @@
 package com.example.climberapp.ui.alarms
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.climberapp.databinding.FragmentAlarmsBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.climberapp.R
+import com.example.climberapp.ui.viewmodel.AlarmFragmentViewModel
+import java.util.*
 
 class AlarmsFragment : Fragment() {
 
-    private var _binding: FragmentAlarmsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerAdapter: AlarmAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(AlarmsViewModel::class.java)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_alarms, container, false)
+        recyclerView = view.findViewById(R.id.recyclerView)
 
-        _binding = FragmentAlarmsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textAlarms
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        initRecyclerView()
+        initViewModel()
+        AlarmFragmentViewModel()
+        return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerAdapter = AlarmAdapter()
+        recyclerView.adapter = recyclerAdapter
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initViewModel() {
+        val viewModel: AlarmFragmentViewModel =
+            ViewModelProvider(this)[AlarmFragmentViewModel::class.java]
+        viewModel.getLiveDataObserver()?.observe(viewLifecycleOwner) {
+            if (it != null) {
+                recyclerAdapter.setAlarmList(it)
+                recyclerAdapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(context, "Error in getting list", Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.fetchAlarms()
     }
 }

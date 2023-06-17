@@ -1,29 +1,28 @@
 package com.example.climberapp.adapters
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
+import com.example.climberapp.activity.DeviceDetailActivity
 import com.example.climberapp.databinding.AdapterDevicelistBinding
 import com.example.climberapp.models.DeviceListModel
-import com.example.climberapp.ui.devices.DeviceViewModel
-import com.example.climberapp.ui.devices.DevicesFragment
 import java.util.Locale
 
 class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filterable {
     var devices = mutableListOf<DeviceListModel>()
     var devicesFiltered = mutableListOf<DeviceListModel>()
-    
-    fun setDeviceList(devices: List<DeviceListModel>) {
+    lateinit var context :Context
+
+    fun setDeviceList(devices: List<DeviceListModel>, context: Context) {
         this.devices = devices.toMutableList()
         this.devicesFiltered = devices.toMutableList()
+        this.context= context
         notifyDataSetChanged()
     }
     fun setDeviceListFilter(devices: List<DeviceListModel>) {
@@ -47,6 +46,14 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
         holder.binding.txtIssueto.text = device.issuedTo
         holder.binding.txtCity.text = device.city
         holder.binding.txtSites.text = device.siteId
+        holder.binding.linMore.setOnClickListener(object : View.OnClickListener {
+            @SuppressLint("SuspiciousIndentation")
+            override fun onClick(view: View?) {
+                // Do some work here
+             val intent = Intent(context, DeviceDetailActivity::class.java)
+                context.startActivity(intent)
+            }
+         })
         if (device.lastOnsite) {
             holder.binding.txtLocation.text = "Onsite"
         } else {
@@ -97,8 +104,6 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
 
             devicesFiltered = results?.values as ArrayList<DeviceListModel>
             setDeviceListFilter(devicesFiltered)
-
-
             /*if (devices.size != 0) {
                 notifyDataSetChanged()
             }*/

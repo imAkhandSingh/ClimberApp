@@ -1,6 +1,7 @@
 package com.example.climberapp.activity
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -61,9 +62,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun loginCall(email:String, password: String) {
+        val progressDialog : ProgressDialog
+        progressDialog = ProgressDialog(this@LoginActivity)
+        progressDialog.setMessage("Loading....")
+        progressDialog.show()
         RetrofitClient.instance.appLogin(email, password)
             .enqueue(object: Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    progressDialog.dismiss()
                     Toast.makeText(this@LoginActivity, t.message, Toast.LENGTH_LONG).show()
                     Log.d("fail",t.message.toString())
                 }
@@ -90,6 +96,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.makeText(this@LoginActivity, "Something went wrong!!", Toast.LENGTH_LONG).show()
                         hideKeyboard()
                     }
+                    progressDialog.dismiss()
                 }
             })
 

@@ -12,4 +12,10 @@ interface Api {
     fun appLogin(
         @Field("email")email:String,
         @Field("password")password: String): Call<LoginResponse>
+
+    @FormUrlEncoded
+    @POST("appLogin")
+    fun deviceDetail(
+        @Field("email")email:String,
+        @Field("password")password: String): Call<LoginResponse>
 }

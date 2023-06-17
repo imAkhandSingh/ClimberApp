@@ -69,7 +69,7 @@ class DevicesFragment : Fragment() {
 
     viewModel.deviceList.observe(viewLifecycleOwner, Observer {
         Log.d(TAG, "onCreate: $it")
-        adapter.setDeviceList(it)
+        activity?.let { it1 -> adapter.setDeviceList(it, it1) }
     })
 
     activity?.let {
@@ -97,7 +97,7 @@ class DevicesFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (query.isNotBlank()||query.isNotEmpty()) {
                     adapter.filter.filter(query)
-                    adapter.notifyDataSetChanged()
+                   // adapter.notifyDataSetChanged()
                 }
                 return false
             }
@@ -106,13 +106,13 @@ class DevicesFragment : Fragment() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isNotBlank()||newText.isNotEmpty()){
                     adapter.filter.filter(newText)
-                    adapter.notifyDataSetChanged()
+                   // adapter.notifyDataSetChanged()
                 }
                 return false
             }
         })
 
-        searchView.setOnQueryTextFocusChangeListener { _ , hasFocus ->
+       /* searchView.setOnQueryTextFocusChangeListener { _ , hasFocus ->
             if (hasFocus) {
                 Log.d("focused","sear")
             } else {
@@ -123,7 +123,7 @@ class DevicesFragment : Fragment() {
                     })
                 Log.d("colapsed","close")
             }
-        }
+        }*/
 
         super.onCreateOptionsMenu(menu, inflater)
     }

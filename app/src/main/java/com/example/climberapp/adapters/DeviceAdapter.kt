@@ -41,7 +41,7 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
     }
 
     override fun onBindViewHolder(holder: DeviceViewHolder, position: Int) {
-        val device = devices[position]
+        val device = devicesFiltered[position]
         holder.binding.txtDeviceId.text = device.deviceId.toString()
         holder.binding.txtIssueto.text = device.issuedTo
         holder.binding.txtCity.text = device.city

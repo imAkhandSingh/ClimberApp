@@ -33,7 +33,7 @@
                     android:layout_marginEnd="200dp"
                     android:padding="5dp"
                     android:gravity="start"
-                    android:text="@string/device_id"
+                    android:text="@string/device_id"    
                     android:textColor="@color/red"
                     android:textSize="16sp"
                     android:textStyle="bold" />

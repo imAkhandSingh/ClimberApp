@@ -81,6 +81,5 @@ class DeviceDetailActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                 }
             })
-
     }
 }

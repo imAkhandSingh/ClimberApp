@@ -29,5 +29,4 @@ object RetrofitClient {
                 chain.proceed(request)
             }.build()
     }
-
 }

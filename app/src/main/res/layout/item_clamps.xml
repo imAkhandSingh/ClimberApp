@@ -62,7 +62,7 @@
                     android:layout_weight="1"
                     android:layout_margin="2dp"
                     android:id="@+id/txt_movement"
-                    android:text="shsjhsjk"
+                    android:text="NA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

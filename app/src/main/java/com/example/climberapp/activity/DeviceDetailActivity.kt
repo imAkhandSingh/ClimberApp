@@ -184,7 +184,6 @@ class DeviceDetailActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                 }
             })
-
     }
 
     fun getAddress(lat: Double,lan: Double){

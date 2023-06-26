@@ -1,42 +1,54 @@
 package com.example.climberapp.ui.sites
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.climberapp.databinding.FragmentSitesBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.climberapp.R
+import com.example.climberapp.ui.viewmodel.SitesViewModel
 
 class SitesFragment : Fragment() {
 
-    private var _binding: FragmentSitesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerAdapter: SitesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(SitesViewModel::class.java)
+        val view = inflater.inflate(R.layout.fragment_sites, container, false)
+        recyclerView = view.findViewById(R.id.sitesRecyclerView)
 
-        _binding = FragmentSitesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textSites
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        initRecyclerView()
+        initViewModel()
+        SitesViewModel()
+        return view
+    }
+    private fun initRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerAdapter = SitesAdapter()
+        recyclerView.adapter = recyclerAdapter
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initViewModel() {
+        val viewModel: SitesViewModel =
+            ViewModelProvider(this)[SitesViewModel::class.java]
+        viewModel.getSiteDataObserver()?.observe(viewLifecycleOwner) {
+            if (it != null) {
+                recyclerAdapter.setSiteList(it)
+                recyclerAdapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(context, "Error in getting list", Toast.LENGTH_SHORT).show()
+            }
+        }
+        viewModel.fetchSites()
     }
 }

@@ -24,6 +24,10 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name="com.example.climberapp.ui.alarms.AlarmsFragment"-->
+<!--            android:label="Alarm Fragment" />-->
+
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"

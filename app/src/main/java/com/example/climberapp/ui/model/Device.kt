@@ -1,0 +1,33 @@
+package com.example.climberapp.ui.model
+
+data class Device(
+    val city: String,
+    val createdAt: String,
+    val createdBy: String,
+    val deviceId: Long,
+    val fleetId: Int,
+    val gsm: Int,
+    val id: Int,
+    val isCameraEnabled: Boolean,
+    val isClamp: Int,
+    val issuedTo: String,
+    val lastBattery: Double,
+    val lastChild: Int,
+    val lastClampOne: Int,
+    val lastClampTwo: Int,
+    val lastGrounded: Int,
+    val lastLat: Double,
+    val lastLon: Double,
+    val lastMsl: Double,
+    val lastOnsite: Boolean,
+    val lastPosition: Int,
+    val lastTouchDate: String,
+    val lastTouchDateTime: String,
+    val lastTouchTime: String,
+    val live: Int,
+    val mobile: String,
+    val siteId: String,
+    val sos: Int,
+    val updatedAt: String,
+    val updatedBy: String
+)

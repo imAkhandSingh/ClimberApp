@@ -45,12 +45,6 @@ class DevicesFragment : Fragment() {
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Handle the back button event
-            }
-        }
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback)
         super.onCreate(savedInstanceState)
     }
 
@@ -79,10 +73,6 @@ class DevicesFragment : Fragment() {
     }
     viewModel.getAllDevices()
 
-//        val textView: TextView = binding.textDevices
-//        galleryViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 

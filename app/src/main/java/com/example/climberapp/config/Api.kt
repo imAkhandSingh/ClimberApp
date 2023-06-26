@@ -1,10 +1,15 @@
 package com.example.climberapp.config
 
 import com.example.climberapp.models.LoginResponse
+import com.example.climberapp.models.PojoDeviceDetail
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Api {
     @FormUrlEncoded
@@ -13,9 +18,10 @@ interface Api {
         @Field("email")email:String,
         @Field("password")password: String): Call<LoginResponse>
 
-    @FormUrlEncoded
-    @POST("appLogin")
+    @GET("appDevices/{deviceId}/{page}")
     fun deviceDetail(
-        @Field("email")email:String,
-        @Field("password")password: String): Call<LoginResponse>
+        @Path("deviceId") deviceId: Long,
+        @Path("page") page: Int
+    ): Call<PojoDeviceDetail>
+
 }

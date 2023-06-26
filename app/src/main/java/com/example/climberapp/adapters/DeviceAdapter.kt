@@ -51,6 +51,7 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
             override fun onClick(view: View?) {
                 // Do some work here
              val intent = Intent(context, DeviceDetailActivity::class.java)
+                intent.putExtra("deviceId",device.deviceId)
                 context.startActivity(intent)
             }
          })
@@ -75,7 +76,6 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
             } else {
                 // when you type something // it also uses Locale in case capital letters different.
                 val filterPattern = constraint.toString().lowercase(Locale.getDefault()).trim()
-                // val filteredList: ArrayList<DeviceListModel> = ArrayList()
                 for (item in devices) {
                     val txApp = item.issuedTo
                     val txCity = item.city
@@ -97,16 +97,8 @@ class DeviceAdapter: RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>(),Filt
         @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
         @Suppress("UNCHECKED_CAST")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-//          devices.clear()
-//          devices.addAll(results!!.values as ArrayList<DeviceListModel>)
-           // devices = results?.values as ArrayList<DeviceListModel>
-
-
             devicesFiltered = results?.values as ArrayList<DeviceListModel>
             setDeviceListFilter(devicesFiltered)
-            /*if (devices.size != 0) {
-                notifyDataSetChanged()
-            }*/
         }
 
 
